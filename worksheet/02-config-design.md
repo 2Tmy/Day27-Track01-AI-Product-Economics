@@ -1,6 +1,7 @@
 # 02 · Configuration Design — Đặt tên + Chốt knobs cho ≥3 Configs
 
 > **Mục tiêu**: Biến phác thảo ở `01-base-flow.md` thành ≥3 configurations chi tiết, mỗi config có tên + 3 knobs đã chốt + lý do chọn.
+>
 > **Thời gian**: 15 phút (đầu phần Main, trước khi tính cost)
 
 ---

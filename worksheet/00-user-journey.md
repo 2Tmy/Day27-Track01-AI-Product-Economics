@@ -1,6 +1,7 @@
 # 00 · User Journey Simulation — Đóng vai Tourist
 
 > **Mục tiêu**: Trước khi tính chi phí, nhóm phải hình dung được khách hàng thật sự hỏi gì, hỏi như thế nào, và 1 conversation thực tế trông ra sao.
+>
 > **Thời gian**: 8 phút (trong 15 phút phần Setup)
 
 ---

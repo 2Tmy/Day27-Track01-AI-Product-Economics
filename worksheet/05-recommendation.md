@@ -1,4 +1,4 @@
-# 05 · Recommendation + Justification — Kết luận & Chuẩn bị Present
+ 05 · Recommendation + Justification — Kết luận & Chuẩn bị Present
 
 > **Mục tiêu**: Chọn 1 config (hoặc combo) nhóm recommend deploy, viết justification ngắn gọn, và chuẩn bị 5 phút present.
 >
@@ -6,83 +6,33 @@
 
 ---
 
-## Bảng số ai cũng tính được. PM giỏi phải **recommend** và **justify**.
-
-Đây là phần quan trọng nhất — phần phân biệt nhóm chỉ làm xong với nhóm thực sự hiểu sản phẩm.
-
----
-
 ## 4 câu hỏi nhóm phải trả lời
-
-Mỗi câu trả lời 2–4 câu. Không lan man, không clichés. Mỗi câu phải justify được bằng số trong bảng so sánh.
 
 ### Câu 1 — Recommend config nào?
 
-Trước khi viết, thảo luận 1 phút:
-
-- Recommend 1 config duy nhất chạy quanh năm? Hay 2 configs khác nhau cho mùa thấp / mùa cao?
-- Có nên recommend "Smart Mix model theo intent" thay vì pick 1 config cố định không?
-- Nếu sếp nói "chỉ deploy 1 config thôi" — chọn cái nào?
-
-```text
-(điền 2–4 câu recommend vào đây — ví dụ:
-"Nhóm recommend Smart Mix cho cả 2 scenarios. Lý do: monthly cost vẫn rẻ hơn human
-95% ở cả low và high season, mà quality estimate Medium-High đủ phục vụ khách
-mong đợi info chính xác. Có thể cân nhắc Premium ở high season nếu booking convert
-rate tăng đủ để justify cost." — đây là ví dụ, đừng copy.)
-```
+Nhóm đề xuất chọn **Config 3 (Smart Mix - Hybrid Router)** làm cấu hình chủ đạo vận hành quanh năm.
+Lý do: Đây là mô hình kinh tế bền vững nhất. Thay vì cào bằng chi phí ("One-size-fits-all"), ta chi tiền thông minh dựa trên rủi ro của từng Intent. Ta sẵn sàng trả tiền cho model đắt (GPT-4o) + Web Search cho mục Visa/Policy vì sai sót ở đây sẽ làm khách lỡ chuyến bay, gây khủng hoảng truyền thông. Ngược lại, với hỏi đáp Guide thông thường, model tầm trung (Flash) kết hợp RAG nội bộ là thừa sức tạo ra trải nghiệm mượt mà.
 
 ### Câu 2 — So với human baseline $0.50/conv → tiết kiệm bao nhiêu? Có đắt hơn human ở chỗ nào không?
 
-```text
-(điền vào đây — ví dụ:
-"Tiết kiệm ___% ở Scenario A, ___% ở Scenario B. Tổng tiết kiệm $___/tháng.
-Tuy nhiên cần justify thêm vì AI không thể replace human cho booking convert —
-1 sales agent vẫn cần thiết. AI thắng ở 24/7 + đa ngôn ngữ + handle volume peak.")
-```
+Smart Mix tiết kiệm ~95.7% ở mùa thấp điểm ($191 vs $4,500) và ~94.8% ở mùa cao điểm ($921 vs $18,000).
+Tuy nhiên, cần làm rõ: AI **không thay thế** human trong việc chốt sale cuối cùng hay xử lý khiếu nại gay gắt. AI đang giải quyết bài toán "hứng phễu 24/7", lọc khách rác, và trả lời tức thời đa ngôn ngữ — những việc mà nếu bắt nhân viên làm sẽ gây quá tải và burn-out. Chi phí thực tế vẫn phải cộng thêm lương cho đội ngũ Sales/CS để xử lý 45% lượng hand-off ở mùa cao điểm.
 
 ### Câu 3 — Khi nào nên upgrade / downgrade config?
 
-Trước khi viết, tự hỏi:
-
-- Volume bao nhiêu thì cost AI scale lớn hơn benefit?
-- Quality complaint rate bao nhiêu thì biết Budget Bot không đủ?
-- Có signal nào báo nên chuyển sang Premium? (mùa cao điểm bắt đầu? customer feedback?)
-
-```text
-(điền vào đây — ví dụ:
-"Nên upgrade lên Premium khi: monthly conv > 50,000 + quality complaint > 5%
-+ approaching peak season (Tết, lễ hội). Nên downgrade về Budget khi: monthly
-conv < 5,000 + low season + revenue per booking < $X.")
-```
+* **Nên upgrade (Chuyển 1 phần traffic sang Premium):** Khi bước vào mùa cao điểm, nếu dữ liệu CRM cho thấy khách có xu hướng chốt tour thiết kế riêng (Custom Tour) > $2,000/booking, ta có thể cài rule: Nếu hệ thống nhận diện IP từ các nước phát triển (Mỹ/Úc/Hàn) hoặc khách bắt đầu nhắc đến các từ khóa VIP/Private, tự động route phiên chat đó sang Config Premium để chăm sóc tận răng.
+* **Nên downgrade (Chuyển sang Balanced Desk hoặc Budget):** Khi ở mùa thấp điểm, tỷ lệ chuyển đổi thành booking thấp, doanh thu trên mỗi đầu khách giảm, ta có thể hạ toàn bộ Response Model xuống Gemini Flash và tắt Web Search để siết chặt biên lợi nhuận.
 
 ### Câu 4 — Rủi ro lớn nhất của config được chọn?
 
-Trước khi viết, tự hỏi:
-
-- Rủi ro về quality? (visa info outdated? language mismatch?)
-- Rủi ro về cost? (provider tăng giá? volume spike?)
-- Rủi ro về business? (khách bị bot trả lời sai → bad review → mất khách?)
-- Có mitigation plan không?
-
-```text
-(điền vào đây — ví dụ:
-"Rủi ro chính: provider tăng giá API → margin co lại. Mitigation: monitor cost
-hàng tháng, có sẵn fallback sang DeepSeek V4 Pro nếu OpenAI/Anthropic tăng >30%.
-Rủi ro phụ: web search OFF có thể dẫn đến visa info outdated → mitigation:
-update RAG hàng tuần cho mục visa, fallback sang human nếu confidence < 0.7.")
-```
+Rủi ro lớn nhất của Smart Mix nằm ở **"Nút thắt cổ chai" Intent Classifier**. Nếu model phân loại (GPT-4o-mini) nhận diện sai ý định (Ví dụ: khách hỏi về rắc rối E-Visa nhưng bot lại xếp vào intent "Điểm đến"), hệ thống sẽ ném khách vào model rẻ và không bật Web Search, dẫn đến tư vấn luật sai.
+*Mitigation plan (Kế hoạch giảm thiểu):* Theo dõi chặt chẽ Confidence Score (độ tự tin) của bộ phân loại. Nếu điểm dưới 0.85, yêu cầu bot tự động hỏi lại xác nhận "Có phải bạn đang hỏi về Thủ tục Visa không?" trước khi kích hoạt quy trình trả lời.
 
 ---
 
 ## Final answer — Recommendation in 1 paragraph
 
-Tổng hợp 4 câu trên thành 1 paragraph 5–7 câu — đây là phần nhóm sẽ đọc / chiếu khi present.
-
-```text
-(viết paragraph vào đây — đọc to lên để check có gọn không, có rõ không.
- Nếu lan man → cắt xuống. Nếu trống rỗng → bổ sung số cụ thể.)
-```
+"Dựa trên phân tích chi phí và hành vi khách hàng, nhóm đề xuất triển khai cấu hình **Smart Mix (Hybrid Router)** làm giải pháp lõi. Mô hình này giúp tiết kiệm 95% chi phí so với nhân sự con người ở cả hai mùa, với tổng chi phí API duy trì ở mức an toàn (< $1,000/tháng ngay cả khi peak-season). Bằng cách phân bổ tài nguyên theo rủi ro Intent — dùng model mạnh và Web Search cho Visa/Pháp lý, dùng model tiết kiệm cho hỏi đáp thông thường — chúng ta đảm bảo được độ chính xác tuyệt đối ở các điểm chạm nhạy cảm, trong khi vẫn tối ưu được chi phí vận hành. Đặc biệt, quy trình hand-off 100% các ca Booking và Khiếu nại sang nhân viên thật đảm bảo AI không can thiệp làm hỏng tỷ lệ chuyển đổi doanh thu cốt lõi của công ty."
 
 ---
 
@@ -92,71 +42,41 @@ Chia 5 phút thành 5 nhịp. 1 người trong nhóm chính phụ trách 1 nhị
 
 ### Nhịp 0:00 – 0:30 — Base flow + 3 knobs đã chọn
 
-Ai trình bày: __________
-
-Nói gì:
-
-```text
-(viết 2 câu vào đây)
-```
+**Ai trình bày:** Chi
+**Nói gì:**
+Chào mọi người, để xây dựng một chatbot du lịch bền vững, nhóm chúng tôi đánh giá chi phí dựa trên 3 trụ cột (Knobs): Model Tier (đắt/rẻ), Web Search (bật/tắt để lấy real-time info) và Độ sâu lịch sử trò chuyện (History).
 
 ### Nhịp 0:30 – 1:00 — Config overview
 
-Ai trình bày: __________
-
-Nói gì (đọc nhanh tên + knobs 3 configs):
-
-```text
-(viết 3 dòng vào đây)
-```
+**Ai trình bày:** Chi
+**Nói gì:**
+Chúng tôi đã test 3 phương án: Config 1 (Budget FAQ - ép chi phí cực đoan), Config 2 (Premium Concierge - đắt xắt ra miếng cho khách VIP), và Config 3 (Smart Mix - phân luồng thông minh dựa trên rủi ro câu hỏi).
 
 ### Nhịp 1:00 – 2:00 — Cost comparison
 
-Ai trình bày: __________
-
-Nói gì (chiếu bảng so sánh, highlight rẻ nhất / đắt nhất):
-
-```text
-(viết 3–4 câu vào đây)
-```
+**Ai trình bày:** Chi
+**Nói gì:**
+Nhìn vào bảng so sánh, nếu chạy bạo lực bằng Premium, mùa cao điểm sẽ ngốn của công ty gần $2,500/tháng API. Dù vẫn rẻ hơn đội ngũ human ($18,000), nhưng tỷ suất lợi nhuận mỏng. Với Smart Mix, chi phí rớt xuống chỉ còn $921/tháng (giảm ~60% so với Premium) mà vẫn đảm bảo an toàn thông tin ở các luồng quan trọng như Visa.
 
 ### Nhịp 2:00 – 3:00 — Key insight
 
-Ai trình bày: __________
-
-Nói gì (knob nào ảnh hưởng cost nhiều nhất + tại sao):
-
-```text
-(viết 2–3 câu vào đây)
-```
+**Ai trình bày:** My
+**Nói gì:**
+Insight đắt giá nhất nhóm rút ra là: Đừng tốn tiền LLM cho mọi thứ. Ở mùa cao điểm, lượng khách hỏi Booking và Phàn nàn chiếm tới 45%. Việc cấu hình hệ thống "bắt" các intent này và đá thẳng cho Sales/CS Agent (Cost API = 0) chính là mấu chốt giúp hóa đơn API của hệ thống không bị phình to tuyến tính theo lượng traffic.
 
 ### Nhịp 3:00 – 4:30 — Recommendation + justification
 
-Ai trình bày: __________ (thường là người mạnh nhất trong nhóm)
-
-Nói gì (đọc paragraph "Final answer" ở trên):
-
-```text
-(copy paragraph vào đây)
-```
+**Ai trình bày:** My
+**Nói gì:**
+[Đọc paragraph "Final answer" ở trên, kết hợp ngôn ngữ cơ thể nhấn mạnh các con số 95% và phân bổ rủi ro]
 
 ### Nhịp 4:30 – 5:00 — Hardest question prep
 
-Ai trình bày: __________
+**Nhóm dự đoán câu hỏi khó nhất sẽ bị hỏi là gì?**
+"Nhóm có Config 4 (Balanced Desk) chạy full Gemini Flash giá chỉ $289 ở mùa cao điểm, tiết kiệm hơn Smart Mix ($921) gấp 3 lần. Tại sao không chọn cái rẻ nhất mà chất lượng vẫn ổn (Mid)?"
 
-Nhóm dự đoán câu hỏi khó nhất sẽ bị hỏi là gì?
-
-```text
-(viết câu hỏi vào đây — ví dụ:
-"Tại sao không chọn Budget Bot cho high season? Premium tăng cost nhiều hơn
-benefit có không?")
-```
-
-Câu trả lời sẵn:
-
-```text
-(viết câu trả lời 2–3 câu)
-```
+**Câu trả lời sẵn:**
+"Vì biên độ rủi ro ngành du lịch quá lớn. Nếu Visa Policy thay đổi mà RAG chưa cập nhật, Gemini Flash (không bật Web Search) sẽ tự tin trả lời sai. Chỉ cần 1 khách hàng Hàn Quốc lỡ chuyến bay vì sai Visa, công ty sẽ mất booking vài ngàn đô và hứng chịu khủng hoảng truyền thông. Khoản tiền tiết kiệm $600/tháng không đáng để đánh đổi rủi ro vận hành khổng lồ này."
 
 ---
 
@@ -167,34 +87,14 @@ Sẵn sàng cho 1 câu từ class + 1 câu từ instructor. Không cần lo lắ
 **3 câu instructor thường hỏi**:
 
 1. *"Knob nào ảnh hưởng cost nhiều nhất trong config của nhóm? Tại sao?"*
+* **Trả lời:** Model Tier. Bước nhảy giá giữa dòng Mini/Flash lên dòng Premium (GPT-4o/Claude 3.5 Sonnet) lên tới 20-30 lần. Do đó, việc dùng đúng Model cho đúng việc quyết định sự sống còn của ngân sách.
+
+
 2. *"Nếu provider tăng giá API ×2 → config của nhóm còn sống được không?"*
+* **Trả lời:** Chắc chắn sống tốt. Hiện Smart Mix chỉ tốn < $1,000 ở đỉnh điểm. Nếu x2 lên $2,000 thì nó vẫn chỉ bằng ~11% so với chi phí thuê nhân sự ($18,000). Biên độ an toàn của Smart Mix là cực kỳ rộng.
+
+
 3. *"So với nhóm X (vừa present trước) — tại sao nhóm bạn chọn khác?"*
-
-Suy nghĩ trước câu trả lời ngắn:
-
-```text
-1. (viết câu trả lời ngắn)
-2. (viết câu trả lời ngắn)
-3. (viết câu trả lời ngắn — phụ thuộc nhóm X present gì, có thể skip)
-```
+* **Trả lời:** Tùy theo nhóm trước nói gì, nhưng Key Defense của nhóm bạn là: "Chúng tôi không chọn 1 model duy nhất vì rủi ro các Intent là khác nhau. Chúng tôi tối ưu hóa dựa trên Risk-Based Routing chứ không tối ưu mù quáng vào token rẻ nhất."
 
 ---
-
-## Bảng kiểm cuối cùng — trước 12:00 Pens Down
-
-- [ ] Đã trả lời 4 câu PM (Recommend / Savings / Threshold / Risk)
-- [ ] Final answer paragraph viết gọn (5–7 câu)
-- [ ] Phân công 5 nhịp present cho mỗi thành viên
-- [ ] Có sẵn câu trả lời cho 3 câu Q&A dự đoán
-- [ ] Comparison table có sẵn để chiếu / chuyền tay khi present
-- [ ] Repo đã commit + push (sẽ nộp link sau buổi học)
-
----
-
-## Sau buổi học
-
-1. **Commit + push repo** với tất cả file đã điền.
-2. **Dán link repo** vào Discord `#day27-evidence-boards` trước 23:59.
-3. **Chuẩn bị cho D28**: peer review giữa các nhóm — sẽ bị hỏi câu chất vấn khó hơn instructor. Polish thêm bảng + recommendation tối nay.
-
-*Hôm nay bạn chứng minh bằng số. Ngày mai bạn bảo vệ bằng logic.*
