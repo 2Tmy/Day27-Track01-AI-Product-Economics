@@ -133,15 +133,15 @@ Nếu savings ÂM → AI đắt hơn human → cần justify (24/7? đa ngôn ng
 
 Dùng AI tính xong, copy số vào đây. Đừng quên kiểm 1 lần xem số có hợp lý không.
 
-### Config 1 — _________________________
+### Config 1 — Budget FAQ (Lean Mode)
 
 | Item | Scenario A (4 turns) | Scenario B (7 turns) |
 |---|---|---|
-| Cost / conversation (avg) | $________ | $________ |
-| Monthly cost | $________ | $________ |
+| Cost / conversation (avg) | $0.001622 | $0.001943 |
+| Monthly cost | $14.60 | $69.94 |
 | Human baseline | $4,500 | $18,000 |
-| **Rẻ hơn human ___×** | _____× | _____× |
-| **Savings %** | ___% | ___% |
+| **Rẻ hơn human ___×** | 308.3× | 257.4× |
+| **Savings %** | 99.68% | 99.61% |
 
 **Sanity check** (trả lời cho nhóm trước khi đi tiếp):
 
@@ -149,42 +149,47 @@ Dùng AI tính xong, copy số vào đây. Đừng quên kiểm 1 lần xem số
 - Monthly có hợp lý không? (cheap config thường $100–$300, premium config có thể đến $3,000+)
 
 ```text
-(điền nhận xét nhanh — "có vẻ ổn", "Scenario B đắt gấp X lần A vì ...",
- hoặc "phải tính lại vì cost/conv $X.XX không hợp lý")
+Có vẻ ổn. Config này cực rẻ vì dùng GPT-4o-mini cho generation + classifier,
+không bật web search, và chỉ giữ Last 3 turns. Scenario B monthly cao hơn A khoảng
+4.8× vì volume tăng 4× và conversation dài hơn 7 turns, nhưng cost/conv vẫn rất thấp.
 ```
 
 ---
 
-### Config 2 — _________________________
+### Config 2 — Premium Concierge (VIP Mode)
 
 | Item | Scenario A | Scenario B |
 |---|---|---|
-| Cost / conversation (avg) | $________ | $________ |
-| Monthly cost | $________ | $________ |
-| **Rẻ hơn human ___×** | _____× | _____× |
-| **Savings %** | ___% | ___% |
+| Cost / conversation (avg) | $0.057106 | $0.069179 |
+| Monthly cost | $513.96 | $2,490.44 |
+| **Rẻ hơn human ___×** | 8.8× | 7.2× |
+| **Savings %** | 88.58% | 86.16% |
 
 **Sanity check**:
 
 ```text
-(điền nhận xét nhanh)
+Hợp lý: đây là config đắt nhất vì dùng model $3/$15 per 1M tokens, bật web broad
+cho mọi AI-served intent, và giữ full history. Dù vậy vẫn rẻ hơn human baseline
+vì Booking + Complaint được handoff sớm và không generate bằng LLM.
 ```
 
 ---
 
-### Config 3 — _________________________
+### Config 3 — Smart Mix (Hybrid Router)
 
 | Item | Scenario A | Scenario B |
 |---|---|---|
-| Cost / conversation (avg) | $________ | $________ |
-| Monthly cost | $________ | $________ |
-| **Rẻ hơn human ___×** | _____× | _____× |
-| **Savings %** | ___% | ___% |
+| Cost / conversation (avg) | $0.021313 | $0.025604 |
+| Monthly cost | $191.82 | $921.76 |
+| **Rẻ hơn human ___×** | 23.5× | 19.5× |
+| **Savings %** | 95.74% | 94.88% |
 
 **Sanity check**:
 
 ```text
-(điền nhận xét nhanh)
+Hợp lý: cost nằm giữa Budget và Premium. Visa/Policy đắt vì dùng strong model +
+web search, nhưng Guide dùng mid model không web nên kéo average xuống. Scenario B
+không tăng quá mạnh theo cost/conv vì 45% traffic là Booking/Complaint handoff.
 ```
 
 ---
@@ -193,10 +198,18 @@ Dùng AI tính xong, copy số vào đây. Đừng quên kiểm 1 lần xem số
 
 | Item | Scenario A | Scenario B |
 |---|---|---|
-| Cost / conversation (avg) | $________ | $________ |
-| Monthly cost | $________ | $________ |
-| **Rẻ hơn human ___×** | _____× | _____× |
-| **Savings %** | ___% | ___% |
+| Cost / conversation (avg) | $0.005519 | $0.008039 |
+| Monthly cost | $49.67 | $289.40 |
+| **Rẻ hơn human ___×** | 90.6× | 62.2× |
+| **Savings %** | 98.90% | 98.39% |
+
+**Sanity check**:
+
+```text
+Hợp lý: Balanced Travel Desk rẻ hơn Smart Mix vì Visa chỉ dùng RAG với mid model,
+không gọi web search. Weather vẫn đắt hơn các intent khác vì có web API $0.005/turn.
+Rủi ro chính là Visa có thể outdated nếu KB chưa được cập nhật.
+```
 
 ---
 
@@ -206,10 +219,10 @@ Mỗi config — estimate Low / Medium / High. Không có công cụ đo chính 
 
 | Config | Quality (Low/Med/High) | Speed (Low/Med/High) | Lý do |
 |---|---|---|---|
-| 1: ___ | ___ | ___ | (1 câu) |
-| 2: ___ | ___ | ___ | (1 câu) |
-| 3: ___ | ___ | ___ | (1 câu) |
-| 4: ___ | ___ | ___ | (1 câu) |
+| 1: Budget FAQ (Lean Mode) | Low-Med | High | Cheap model + no web rất nhanh/rẻ, nhưng dễ fail khi visa/weather cần thông tin mới hoặc chat dài. |
+| 2: Premium Concierge (VIP Mode) | High | Low-Med | Model mạnh + web broad + full history cho trải nghiệm tốt nhất, nhưng web search làm chậm 1-2s mỗi turn. |
+| 3: Smart Mix (Hybrid Router) | High | Medium | Dùng strong model + web cho Visa/Weather và mid model cho Guide, nên cân bằng tốt giữa accuracy và latency. |
+| 4: Balanced Travel Desk | Medium | Medium-High | Mid model cho mọi intent, chỉ web cho Weather nên nhanh hơn Smart Mix nhưng rủi ro hơn ở Visa. |
 
 **Hướng dẫn ước tính**:
 
@@ -220,10 +233,10 @@ Mỗi config — estimate Low / Medium / High. Không có công cụ đo chính 
 
 ## Bảng kiểm trước khi sang file tiếp theo
 
-- [ ] Tất cả ≥3 configs đã có cost/conv + monthly cho cả 2 scenarios
-- [ ] Đã so sánh từng config với human baseline ($0.50/conv)
-- [ ] Có quality + speed estimate cho mỗi config
-- [ ] Đã sanity check — không có số "quá lạ" (cost <$0.001 hoặc >$1/conv)
+- [x] Tất cả ≥3 configs đã có cost/conv + monthly cho cả 2 scenarios
+- [x] Đã so sánh từng config với human baseline ($0.50/conv)
+- [x] Có quality + speed estimate cho mỗi config
+- [x] Đã sanity check — không có số "quá lạ" (cost <$0.001 hoặc >$1/conv)
 
 ⚑ **Checkpoint 11:00**: ≥1 config đã tính cost xong &nbsp; · &nbsp; ⚑ **Checkpoint 11:20**: tất cả configs đã tính cost xong cho cả 2 scenarios.
 
