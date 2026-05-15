@@ -26,7 +26,7 @@ Viết **5–7 câu hỏi bằng tiếng Anh** mình sẽ thật sự gửi cho 
 
 → Mỗi người viết vào ô dưới:
 
-### Tourist #1 (Tên thành viên: Khách Balo/Solo từ Úc)
+### Tourist #1 (Khách Balo/Solo từ Úc)
 
 ```text
 1. "Is it easy to pay with Apple Pay/card over there, or should I be carrying a lot of cash in VND?"
@@ -36,7 +36,7 @@ Viết **5–7 câu hỏi bằng tiếng Anh** mình sẽ thật sự gửi cho 
 5. "Hey, what's the safest way to get from Tan Son Nhat airport to District 1 at 2 AM? I read a lot about fake taxi scams."
 ```
 
-### Tourist #2 (Tên thành viên: Khách gia đình từ Mỹ)
+### Tourist #2 (Khách gia đình từ Mỹ)
 
 ```text
 1. "We're a family of four. For the Ha Long Bay cruise, do you guarantee connecting rooms, and are the boat balconies child-safe?"
@@ -46,7 +46,7 @@ Viết **5–7 câu hỏi bằng tiếng Anh** mình sẽ thật sự gửi cho 
 5. "If my kid gets sick during the trip, does your package include support for finding an English-speaking pediatrician or clinic?"
 ```
 
-### Tourist #3 (Tên thành viên: Khách công tác/ngắn ngày từ Hàn Quốc)
+### Tourist #3 (Khách công tác/ngắn ngày từ Hàn Quốc)
 
 ```text
 1. "I need a red invoice (VAT receipt) for all the tour and car bookings to claim with my company. Can you provide this?"
